@@ -36,7 +36,7 @@ fn test_can_create_shop() {
 }
 
 #[test]
-fn test_can_fight_draw() {
+fn test_can_fight_tie() {
     let card1 = Card {
         price: 10,
         health: 10,
@@ -53,7 +53,7 @@ fn test_can_fight_draw() {
 }
 
 #[test]
-fn test_can_fight_tie() {
+fn test_can_fight_draw() {
     let card1 = Card {
         price: 10,
         health: 10,

@@ -1,6 +1,7 @@
-use std::fmt;
+use std::{cmp::Ordering, fmt};
 
 use crate::{card::Card, FightResult};
+use itertools::iproduct;
 
 pub struct Shop {
     pub cards: Vec<Card>,
@@ -26,7 +27,19 @@ impl Shop {
     /// this store wins, FightResult::Loss if this store loses, and a
     /// FightResult::Tie if both stores win the same number of battles.
     pub fn fight_store(&self, other: &Shop) -> FightResult {
-        todo!()
+        match iproduct!(&self.cards, &other.cards)
+            .into_iter()
+            .fold(0, |wins, (s, o)| match s.fight(o) {
+                FightResult::Win => wins + 1,
+                FightResult::Loss => wins - 1,
+                _ => wins,
+            })
+            .cmp(&0)
+        {
+            Ordering::Greater => FightResult::Win,
+            Ordering::Less => FightResult::Loss,
+            _ => FightResult::Tie,
+        }
     }
 }
 
